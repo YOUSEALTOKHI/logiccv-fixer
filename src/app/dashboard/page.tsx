@@ -1,7 +1,34 @@
+'use client';
+
 import { motion } from 'framer-motion';
-import { Home, FileText, ShoppingCart, Users, Settings, Upload, Zap } from 'lucide-react';
+import { Home, FileText, ShoppingCart, Users, Settings, Upload, Zap, Play } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Dashboard() {
+  const [aiResult, setAiResult] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+
+  const testAI = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/ai-resume-writer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jobTitle: 'مطور برمجيات',
+          experience: '3 سنوات',
+          skills: 'JavaScript, React, Node.js',
+          education: 'بكالوريوس علوم الحاسب'
+        })
+      });
+      const data = await response.json();
+      setAiResult(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="min-h-screen bg-dark-900 flex">
       {/* Sidebar */}
@@ -57,6 +84,34 @@ export default function Dashboard() {
                 <p className="text-neon-blue">اضغط هنا لاختيار الملف أو اسحبه هنا</p>
                 <p className="text-sm text-gray-400 mt-2">يدعم PDF, DOC, DOCX (حتى 10MB)</p>
               </div>
+            </div>
+          </div>
+
+          {/* AI Test Section */}
+          <div className="bg-dark-800 border border-neon-purple/20 rounded-lg p-8 mb-8">
+            <div className="text-center">
+              <Zap className="mx-auto text-neon-purple mb-4" size={48} />
+              <h3 className="text-xl font-semibold mb-4">اختبر الذكاء الاصطناعي</h3>
+              <p className="text-gray-300 mb-6">جرب كتابة السيرة الذاتية بالذكاء الاصطناعي</p>
+              <button
+                onClick={testAI}
+                disabled={loading}
+                className="bg-neon-purple hover:bg-neon-purple/80 text-white px-6 py-3 rounded-lg font-semibold transition-all flex items-center mx-auto"
+              >
+                {loading ? 'جاري المعالجة...' : 'ابدأ الاختبار'}
+                <Play className="mr-2" size={20} />
+              </button>
+              {aiResult && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="mt-6 p-4 bg-dark-700 rounded-lg text-right"
+                >
+                  <h4 className="font-semibold mb-2">نتيجة AI:</h4>
+                  <p className="text-gray-300 mb-2">{aiResult.summary}</p>
+                  <p className="text-sm text-neon-blue">نقاط ATS: {aiResult.atsScore}/100</p>
+                </motion.div>
+              )}
             </div>
           </div>
 

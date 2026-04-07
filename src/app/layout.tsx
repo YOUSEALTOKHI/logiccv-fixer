@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Particles from "@/components/Particles";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({
   subsets: ["latin", "arabic"],
@@ -19,22 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${inter.variable} font-sans bg-dark-900 text-white`}>
-        {children}
+      <body className={`${inter.variable} font-sans bg-dark-900 text-white relative overflow-x-hidden`}>
+        <Particles />
+        <Navbar />
+        <main className="relative z-10 pt-16">
+          {children}
+        </main>
       </body>
-    </html>
-  );
-}
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
