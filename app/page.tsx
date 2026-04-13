@@ -8,12 +8,6 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [dragActive, setDragActive] = useState(false);
 
-  const [uploadState, setUploadState] = useState({
-    file: null,
-    score: null,
-    suggestions: [],
-  });
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -30,7 +24,7 @@ const Dashboard = () => {
     try {
       const result = await trpc.atsAnalysis.analyzeFile.useMutation({
         body: {
-          file: uploadState.file,
+          file,
         },
       });
 
