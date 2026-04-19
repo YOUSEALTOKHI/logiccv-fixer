@@ -1,244 +1,293 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Zap, Globe, Shield } from 'lucide-react';
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-dark-900">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 px-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-neon-blue/10 to-neon-purple/10" />
-        <div className="relative max-w-6xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6 neon-text"
+    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+        <Image
+          className="dark:invert"
+          src="/next.svg"
+          alt="Next.js logo"
+          width={100}
+          height={20}
+          priority
+        />
+        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
+          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+            To get started, edit the page.tsx file.
+          </h1>
+          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+            Looking for a starting point or more instructions? Head over to{" "}
+            <a
+              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="font-medium text-zinc-950 dark:text-zinc-50"
+            >
+              Templates
+            </a>{" "}
+            or the{" "}
+            <a
+              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+              className="font-medium text-zinc-950 dark:text-zinc-50"
+            >
+              Learning
+            </a>{" "}
+            center.
+          </p>
+        </div>
+        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+          <a
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            صناعة المستقبل الوظيفي
-            <br />
-            <span className="text-neon-blue">بالذكاء الاصطناعي</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
+            <Image
+              className="dark:invert"
+              src="/vercel.svg"
+              alt="Vercel logomark"
+              width={16}
+              height={16}
+            />
+            Deploy Now
+          </a>
+          <a
+            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
+            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            منصة CVLogic العالمية لبناء السير الذاتية الاحترافية التي تتفوق على أنظمة ATS
-            مع دعم كامل للعربية والإنجليزية
-          </motion.p>
+            Documentation
+          </a>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ArrowRight, CheckCircle, Zap, BarChart3, Users, Sparkles, ShieldCheck, FileBadge2 } from 'lucide-react';
+
+const features = [
+  { icon: BarChart3, title: 'ATS Analysis', desc: 'Get a real ATS-style score and actionable keyword insights.' },
+  { icon: Sparkles, title: 'AI Rewrite', desc: 'Instantly improve bullet points, summary, and overall clarity.' },
+  { icon: Users, title: 'Role Matching', desc: 'Align your resume with specific jobs and hiring expectations.' },
+  { icon: ShieldCheck, title: 'Recruiter-Ready', desc: 'Professional formatting and language that stands out.' },
+  { icon: FileBadge2, title: 'Cover Letter', desc: 'Generate matching cover letters for each target job.' },
+  { icon: Zap, title: 'Fast Results', desc: 'Go from draft to optimized CV in minutes, not days.' },
+];
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$29',
+    desc: 'For one-time optimization',
+    highlight: false,
+    items: ['ATS score report', 'Keyword gap analysis', 'Basic recommendations'],
+  },
+  {
+    name: 'Pro',
+    price: '$79',
+    desc: 'Best for active job seekers',
+    highlight: true,
+    items: ['Unlimited CV revisions', 'AI rewrite assistant', 'Job-target optimization', 'Priority support'],
+  },
+  {
+    name: 'Career+',
+    price: '$129',
+    desc: 'Complete career toolkit',
+    highlight: false,
+    items: ['Everything in Pro', 'Cover letter generator', 'LinkedIn summary optimizer', 'Advanced coaching notes'],
+  },
+];
+
+export default function HomePage() {
+  const isArabic = false;
+
+  return (
+    <div className={isArabic ? 'rtl' : 'ltr'} dir={isArabic ? 'rtl' : 'ltr'}>
+      <motion.nav
+        initial={{ y: -80 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.35 }}
+        className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-[#E5E7EB]"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Zap className="text-[#2563EB]" size={24} />
+            <span className="text-2xl font-extrabold tracking-tight text-[#1E3A8A]">CVLogic</span>
+          </div>
+
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#374151]">
+            <a href="#features" className="hover:text-[#1E40AF]">Features</a>
+            <a href="#pricing" className="hover:text-[#1E40AF]">Pricing</a>
+            <a href="#how" className="hover:text-[#1E40AF]">How it works</a>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Link href="/dashboard" className="hidden sm:inline-flex text-[#1F2937] hover:text-[#1E40AF] text-sm font-medium">
+              Dashboard
+            </Link>
+            <Link
+              href="/dashboard"
+              className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2 rounded-lg text-sm font-semibold"
+            >
+              Get Started
+            </Link>
+          </div>
+        </div>
+      </motion.nav>
+
+      <section className="pt-32 pb-16 px-4 bg-gradient-to-b from-[#EFF6FF] via-white to-white">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#BFDBFE] bg-[#EFF6FF] px-3 py-1 text-xs text-[#1D4ED8] font-semibold mb-6">
+              <Sparkles size={14} />
+              AI-Powered Resume Builder
+            </div>
+            <h1 className="text-5xl lg:text-6xl font-extrabold text-[#0F172A] leading-tight mb-6">
+              Build a Job-Winning Resume in Minutes
+            </h1>
+            <p className="text-lg text-[#475569] leading-relaxed mb-8 max-w-xl">
+              Create, optimize, and tailor your resume with ATS-focused AI guidance to increase interviews and land better opportunities faster.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/dashboard"
+                className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3 rounded-xl font-semibold inline-flex items-center justify-center gap-2"
+              >
+                Start Building <ArrowRight size={18} />
+              </Link>
+              <a
+                href="#pricing"
+                className="border border-[#93C5FD] text-[#1D4ED8] hover:bg-[#EFF6FF] px-7 py-3 rounded-xl font-semibold text-center"
+              >
+                See Pricing
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-[#64748B]">
+              <span className="flex items-center gap-2"><CheckCircle className="text-[#10B981]" size={16} /> ATS-ready templates</span>
+              <span className="flex items-center gap-2"><CheckCircle className="text-[#10B981]" size={16} /> AI writing assistant</span>
+              <span className="flex items-center gap-2"><CheckCircle className="text-[#10B981]" size={16} /> One-click export</span>
+            </div>
+          </motion.div>
+
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className="bg-white border border-[#E2E8F0] rounded-2xl shadow-xl p-6"
           >
-            <button className="bg-neon-blue hover:bg-neon-blue/80 text-black font-semibold py-3 px-8 rounded-lg neon-glow transition-all">
-              ابدأ الآن مجاناً
-              <ArrowRight className="inline ml-2" size={20} />
-            </button>
-            <button className="border border-neon-blue text-neon-blue hover:bg-neon-blue/10 py-3 px-8 rounded-lg transition-all">
-              شاهد العرض التوضيحي
-            </button>
+            <div className="rounded-xl border border-[#DBEAFE] bg-[#F8FAFC] p-5 mb-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-[#0F172A]">Resume Score</h3>
+                <span className="text-[#2563EB] font-bold">92/100</span>
+              </div>
+              <div className="w-full h-2 rounded-full bg-[#E2E8F0] overflow-hidden">
+                <div className="h-2 w-[92%] bg-[#2563EB]" />
+              </div>
+            </div>
+            <div className="space-y-3">
+              {['Keyword match improved', 'Summary optimized', 'Formatting ATS-safe', 'Impact verbs enhanced'].map((line) => (
+                <div key={line} className="flex items-center justify-between rounded-lg border border-[#E5E7EB] px-4 py-3">
+                  <span className="text-[#334155] text-sm">{line}</span>
+                  <CheckCircle className="text-[#10B981]" size={16} />
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 neon-text">لماذا CVLogic؟</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-dark-800 p-6 rounded-lg border border-neon-blue/20"
-            >
-              <Zap className="text-neon-blue mb-4" size={40} />
-              <h3 className="text-xl font-semibold mb-2">فحص ATS متقدم</h3>
-              <p className="text-gray-300">تحليل دقيق للسيرة الذاتية وتحسينها لتتجاوز أنظمة ATS بمعدل نجاح 95%</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-dark-800 p-6 rounded-lg border border-neon-purple/20"
-            >
-              <Globe className="text-neon-purple mb-4" size={40} />
-              <h3 className="text-xl font-semibold mb-2">دعم اللغات الذكي</h3>
-              <p className="text-gray-300">دعم كامل للعربية والإنجليزية مع RTL/LTR تلقائي وترجمة احترافية</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-dark-800 p-6 rounded-lg border border-neon-cyan/20"
-            >
-              <Shield className="text-neon-cyan mb-4" size={40} />
-              <h3 className="text-xl font-semibold mb-2">أمان وخصوصية</h3>
-              <p className="text-gray-300">تشفير متقدم وبيانات محمية GDPR مع خوارزميات AI آمنة</p>
-            </motion.div>
+      <section id="features" className="py-20 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-4xl font-extrabold text-[#0F172A] mb-4">Everything you need to stand out</h2>
+            <p className="text-[#64748B]">A complete resume workflow designed for real hiring pipelines and ATS systems.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((f) => (
+              <div key={f.title} className="rounded-2xl border border-[#E5E7EB] p-6 hover:shadow-md transition bg-white">
+                <f.icon className="text-[#2563EB] mb-4" size={24} />
+                <h3 className="font-bold text-[#0F172A] mb-2">{f.title}</h3>
+                <p className="text-sm text-[#64748B] leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-20 px-4">
+      <section id="how" className="py-20 px-4 bg-[#F8FAFC]">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+          {[
+            ['Upload or Start', 'Import your current CV or start from a clean template.'],
+            ['Optimize with AI', 'Improve bullets, metrics, and keywords for target roles.'],
+            ['Export & Apply', 'Download and apply confidently with an ATS-optimized resume.'],
+          ].map(([title, desc], i) => (
+            <div key={title} className="rounded-2xl bg-white border border-[#E5E7EB] p-6">
+              <div className="w-8 h-8 rounded-full bg-[#DBEAFE] text-[#1D4ED8] font-bold flex items-center justify-center mb-4">{i + 1}</div>
+              <h3 className="text-lg font-bold text-[#0F172A] mb-2">{title}</h3>
+              <p className="text-sm text-[#64748B]">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="pricing" className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 neon-text">خطط الأسعار</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="bg-dark-800 p-8 rounded-lg border border-gray-700 hover:border-neon-blue/50 transition-all"
-            >
-              <h3 className="text-2xl font-semibold mb-4">مجاني</h3>
-              <p className="text-4xl font-bold mb-6">$0</p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> فحص ATS لمرة واحدة</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> تصدير PDF أساسي</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> دعم العربية والإنجليزية</li>
-              </ul>
-              <button className="w-full bg-gray-700 hover:bg-gray-600 py-3 rounded-lg transition-all">
-                ابدأ مجاناً
-              </button>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-dark-800 p-8 rounded-lg border-2 border-neon-blue neon-glow relative"
-            >
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-neon-blue text-black px-4 py-1 rounded-full text-sm font-semibold">
-                الأكثر شعبية
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-4xl font-extrabold text-[#0F172A] mb-4">Simple pricing for every stage</h2>
+            <p className="text-[#64748B]">Choose your plan and start building a stronger career profile today.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {plans.map((p) => (
+              <div
+                key={p.name}
+                className={`rounded-2xl border p-7 ${p.highlight ? 'border-[#2563EB] bg-[#EFF6FF] shadow-md' : 'border-[#E5E7EB] bg-white'}`}
+              >
+                {p.highlight && (
+                  <span className="inline-block mb-4 text-xs px-3 py-1 rounded-full bg-[#2563EB] text-white font-semibold">
+                    Most Popular
+                  </span>
+                )}
+                <h3 className="text-xl font-bold text-[#0F172A]">{p.name}</h3>
+                <div className="text-4xl font-extrabold text-[#1D4ED8] mt-2">{p.price}</div>
+                <p className="text-sm text-[#64748B] mt-2 mb-5">{p.desc}</p>
+                <ul className="space-y-3 mb-7">
+                  {p.items.map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-[#334155]">
+                      <CheckCircle className="text-[#10B981]" size={16} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <button className={`w-full py-3 rounded-xl font-semibold ${p.highlight ? 'bg-[#2563EB] text-white hover:bg-[#1D4ED8]' : 'bg-[#F1F5F9] text-[#1D4ED8] hover:bg-[#E2E8F0]'}`}>
+                  Choose {p.name}
+                </button>
               </div>
-              <h3 className="text-2xl font-semibold mb-4">Pro</h3>
-              <p className="text-4xl font-bold mb-6">$9.99<span className="text-lg">/شهر</span></p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> فحص ATS غير محدود</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> تحسين الجمل بالAI</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> تصدير متعدد التنسيقات</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> دعم 24/7</li>
-              </ul>
-              <button className="w-full bg-neon-blue text-black font-semibold py-3 rounded-lg hover:bg-neon-blue/80 transition-all">
-                اشترك الآن
-              </button>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-dark-800 p-8 rounded-lg border border-gray-700 hover:border-neon-purple/50 transition-all"
-            >
-              <h3 className="text-2xl font-semibold mb-4">Premium</h3>
-              <p className="text-4xl font-bold mb-6">$19.99<span className="text-lg">/شهر</span></p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> جميع ميزات Pro</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> استشارة شخصية</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> تحليل السوق الوظيفي</li>
-                <li className="flex items-center"><CheckCircle className="text-green-400 mr-2" size={20} /> API للمطورين</li>
-              </ul>
-              <button className="w-full bg-neon-purple hover:bg-neon-purple/80 text-white py-3 rounded-lg transition-all">
-                اشترك الآن
-              </button>
-            </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="text-4xl font-bold neon-text">10,000+</div>
-              <p className="text-gray-300 mt-2">سيرة ذاتية محسنة</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <div className="text-4xl font-bold neon-text">95%</div>
-              <p className="text-gray-300 mt-2">نجاح في تجاوز ATS</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="text-4xl font-bold neon-text">50+</div>
-              <p className="text-gray-300 mt-2">لغة مدعومة</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div className="text-4xl font-bold neon-text">24/7</div>
-              <p className="text-gray-300 mt-2">دعم فني</p>
-            </motion.div>
-          </div>
+      <section className="py-16 px-4 bg-[#0F172A]">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl font-extrabold text-white mb-4">Ready to boost your interview rate?</h2>
+          <p className="text-[#CBD5E1] mb-7">Build your resume with AI and start applying with confidence today.</p>
+          <Link href="/dashboard" className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold">
+            Open Dashboard <ArrowRight size={18} />
+          </Link>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-dark-800 border-t border-neon-blue/20 py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Zap className="text-neon-blue" size={24} />
-                <span className="text-xl font-bold neon-text">CVLogic</span>
-              </div>
-              <p className="text-gray-300">
-                منصة الذكاء الاصطناعي الأولى لصناعة السير الذاتية الاحترافية
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">المنتجات</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li><a href="#" className="hover:text-neon-blue transition-colors">AI Resume Writer</a></li>
-                <li><a href="#" className="hover:text-neon-blue transition-colors">ATS Checker</a></li>
-                <li><a href="#" className="hover:text-neon-blue transition-colors">Cover Letter Generator</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">الدعم</h3>
-              <ul className="space-y-2 text-gray-300">
-                <li><a href="#" className="hover:text-neon-blue transition-colors">المساعدة</a></li>
-                <li><a href="#" className="hover:text-neon-blue transition-colors">الأسئلة الشائعة</a></li>
-                <li><a href="#" className="hover:text-neon-blue transition-colors">اتصل بنا</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">تابعنا</h3>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-300 hover:text-neon-blue transition-colors">
-                  <span className="sr-only">Twitter</span>
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
-                </a>
-                <a href="#" className="text-gray-300 hover:text-neon-blue transition-colors">
-                  <span className="sr-only">LinkedIn</span>
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2026 CVLogic. جميع الحقوق محفوظة.</p>
+      <footer className="bg-[#020617] text-[#94A3B8] py-10 px-4">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <p>© 2026 CVLogic. All rights reserved.</p>
+          <div className="flex items-center gap-5 text-sm">
+            <a href="#" className="hover:text-white">Privacy</a>
+            <a href="#" className="hover:text-white">Terms</a>
+            <a href="#" className="hover:text-white">Contact</a>
           </div>
         </div>
       </footer>

@@ -1,0 +1,79 @@
+{
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "arabic": "العربية",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "settings": "Settings"
+  },
+  "landing": {
+    "title": "AI-Driven Career Success",
+    "subtitle": "Optimize your resume with advanced ATS analysis powered by AI",
+    "cta": "Get Started Free",
+    "secondaryCTA": "View Pricing",
+    "hero": {
+      "headline": "Land Your Dream Job",
+      "description": "CVLogic analyzes your resume like ATS systems do - giving you the insights you need to succeed",
+      "features": "ATS Analysis • AI Writing • Job Matching"
+    },
+    "pricing": {
+      "title": "Simple, Transparent Pricing",
+      "basic": {
+        "name": "Basic Analysis",
+        "price": "$49",
+        "description": "Single CV analysis",
+        "features": ["ATS Score", "Keyword Analysis", "Basic Suggestions"]
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "$79",
+        "description": "Multiple analyses with AI writing",
+        "features": ["Unlimited CVs", "AI Resume Writing", "Weekly Email Tips", "Job Matching"]
+      },
+      "premium": {
+        "name": "Premium",
+        "price": "$129",
+        "description": "Full-featured career toolkit",
+        "features": ["Everything in Pro", "1-on-1 Career Coaching", "LinkedIn Optimization", "Cover Letter AI"]
+      },
+      "express": {
+        "name": "24h Delivery Express",
+        "price": "$99",
+        "description": "Rush CV optimization",
+        "features": ["Expert Review", "24h Turnaround", "Custom Writing", "ATS Guarantee"]
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Welcome to Dashboard",
+    "sidebar": {
+      "home": "Home",
+      "myCVs": "My CVs",
+      "orders": "Orders",
+      "affiliate": "Affiliate",
+      "settings": "Settings"
+    },
+    "uploadCV": {
+      "title": "Upload Your Resume",
+      "subtitle": "Upload PDF or Word document for ATS analysis",
+      "dropZone": "Click to select file or drag & drop",
+      "supportedFormats": "Supported: PDF, DOC, DOCX (up to 10MB)"
+    },
+    "testAI": {
+      "title": "Test AI Resume Writer",
+      "subtitle": "Try our AI-powered resume writing",
+      "button": "Start Test",
+      "processing": "Processing...",
+      "result": "AI Result"
+    },
+    "stats": {
+      "atsScore": "ATS Score",
+      "optimizedResumes": "Optimized Resumes",
+      "affiliateEarnings": "Affiliate Earnings"
+    }
+  }
+}

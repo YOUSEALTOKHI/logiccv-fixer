@@ -1,0 +1,268 @@
+{
+  "name": "Daily Data Collection from Telegram & WhatsApp",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "intervalUnit": "days",
+              "triggerAtTime": "00:00"
+            }
+          ]
+        }
+      },
+      "id": "Schedule Trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "getAll",
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "limit": 100
+      },
+      "id": "Telegram Get Messages",
+      "name": "Telegram Get Messages",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        450,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegramApi",
+          "name": "Telegram API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getMessages",
+        "chatId": "={{ $env.WHATSAPP_CHAT_ID }}"
+      },
+      "id": "WhatsApp Get Messages",
+      "name": "WhatsApp Get Messages",
+      "type": "n8n-nodes-base.whatsapp",
+      "typeVersion": 1,
+      "position": [
+        450,
+        400
+      ],
+      "credentials": {
+        "whatsappApi": {
+          "id": "whatsappApi",
+          "name": "WhatsApp API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericCredentialType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer {{ $env.OPENAI_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "jsonParameters": true,
+        "body": {
+          "model": "gpt-4",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a data analyst. Extract, categorize and analyze the following message data. Return structured JSON."
+            },
+            {
+              "role": "user",
+              "content": "={{ $json.text }}"
+            }
+          ],
+          "temperature": 0.7
+        }
+      },
+      "id": "Analyze with AI",
+      "name": "Analyze with AI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        650,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "extractText",
+        "imageUrl": "={{ $json.imageUrl }}"
+      },
+      "id": "Extract Text from Images",
+      "name": "Extract Text from Images",
+      "type": "n8n-nodes-base.ocr",
+      "typeVersion": 1,
+      "position": [
+        650,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "jsonToSheet",
+        "data": "={{ JSON.stringify($json) }}",
+        "fileName": "daily-data"
+      },
+      "id": "Merge & Format to Excel",
+      "name": "Merge & Format to Excel",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        850,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "put",
+        "bucketName": "{{ $env.AWS_BUCKET }}",
+        "key": "daily-data-{{ $now.format('YYYY-MM-DD') }}.xlsx"
+      },
+      "id": "Save to Cloud Storage",
+      "name": "Save to Cloud Storage",
+      "type": "n8n-nodes-base.aws",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        300
+      ],
+      "credentials": {
+        "aws": {
+          "id": "aws",
+          "name": "AWS S3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "channel": "#data-logs",
+        "text": "✅ Daily workflow completed. Data collected: {{ $json.count }} messages. File: daily-data-{{ $now.format('YYYY-MM-DD') }}.xlsx"
+      },
+      "id": "Notify Slack",
+      "name": "Notify Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [
+        1050,
+        450
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "slackApi",
+          "name": "Slack"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Telegram Get Messages",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "WhatsApp Get Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Get Messages": {
+      "main": [
+        [
+          {
+            "node": "Extract Text from Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Get Messages": {
+      "main": [
+        [
+          {
+            "node": "Extract Text from Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text from Images": {
+      "main": [
+        [
+          {
+            "node": "Analyze with AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze with AI": {
+      "main": [
+        [
+          {
+            "node": "Merge & Format to Excel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge & Format to Excel": {
+      "main": [
+        [
+          {
+            "node": "Save to Cloud Storage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Cloud Storage": {
+      "main": [
+        [
+          {
+            "node": "Notify Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {}
+}
